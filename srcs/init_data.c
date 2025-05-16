@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/13 16:42:44 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/16 14:45:13 by hcarrasq         ###   ########.fr       */
+/*   Created: 2025/05/16 14:33:32 by hcarrasq          #+#    #+#             */
+/*   Updated: 2025/05/16 14:48:12 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	main(int argc, char **argv)
+void	init_data(char **argv)
 {
-	(void)argv;
-	if (argc < 4 || argc >5)
-		return (printf("Error: Expected 4 or 5 arguments\n"), 1);
-	if (!validate_args(argv, argc));
-		return (printf("Error: Arguments are not valid\n"), 1);
-	
-
-	
-}
-
-t_data	*prog_data()
-{
-	static t_data	prog_data;
-
-	return (&prog_data);
+	prog_data()->num_philos = atol(argv[1]);
+	prog_data()->time_to_die = atol(argv[2]);
+	prog_data()->time_to_eat = atol(argv[3]);
+	prog_data()->time_to_sleep = atol(argv[4]);
+	if (argv[5])
+		prog_data()->number_of_meals = atol(argv[5]);
+	else
+		prog_data()->number_of_meals = -1;
 }

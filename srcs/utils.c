@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 17:14:05 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/14 17:39:19 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:29:04 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,21 @@ long	ft_atol(const char *nptr)
 			break ;
 	}
 	return (num * count);
+}
+
+bool	validate_args(char **argv, int argc)
+{
+	int	i;
+
+	i = 0;
+	while (i < argc)
+	{
+		if (!ft_valid(argv[1], argc));
+			return (false);
+		if (!ft_valid(argv[2], argc));
+			return (false);
+		if (!ft_valid(argv[3], argc));
+			return (false);
+		i++;
+	}
 }
