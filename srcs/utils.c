@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 17:14:05 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/16 14:29:04 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:33:42 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ bool	ft_isnbr(char *nbr)
 	i = 0;
 	if (nbr[i] == '+' || nbr[i] == '-')
 		i++;
+	if (!nbr[i])
+		return (false);
 	while (nbr[i])
 	{
 		if (!ft_isdigit(nbr[i]))
@@ -35,7 +37,9 @@ bool	ft_isnbr(char *nbr)
 	}
 	return (true);
 }
-
+/// @brief check if its a number or not
+/// @param argc 
+/// @param argv 
 bool	ft_valid(int argc, char **argv)
 {
 	char	**nbr;
@@ -50,17 +54,16 @@ bool	ft_valid(int argc, char **argv)
 		while (argv[j])
 		{
 			if (!ft_isnbr(argv[j]))
-			{
-				//ft_free(nbr);
 				return (false);
-			}
 			j++;
 		}
 		i++;
 	}
 	return (true);
 }
-
+/// @brief 
+/// @param nptr string thats gonna be converted to an int
+/// @return only positive numbers
 long	ft_atol(const char *nptr)
 {
 	int		count;
@@ -75,7 +78,7 @@ long	ft_atol(const char *nptr)
 	if (nptr[i] == '+' || nptr[i] == '-')
 	{
 		if (nptr[i] == '-')
-			count *= -1;
+			return (-1);
 		i++;
 		if (!nptr[i])
 			return ((long)INT_MAX + 1);
@@ -85,24 +88,34 @@ long	ft_atol(const char *nptr)
 		num = num * 10 + (nptr[i] - 48);
 		i++;
 		if (num > INT_MAX || num < INT_MIN)
-			break ;
+			return ((long)INT_MAX + 1);
 	}
 	return (num * count);
 }
-
+/// @brief function to check if all the arguments are valid
+/// @param argv 
+/// @param argc 
 bool	validate_args(char **argv, int argc)
 {
 	int	i;
 
 	i = 0;
+	if (!ft_valid(argc, &argv[1]))
+		return (false);
 	while (i < argc)
 	{
-		if (!ft_valid(argv[1], argc));
+		if ((ft_atol(argv[1]) < 0 || ft_atol(argv[1]) > 200))
 			return (false);
-		if (!ft_valid(argv[2], argc));
+		if ((ft_atol(argv[2]) < 0 || ft_atol(argv[2]) > INT_MAX))
 			return (false);
-		if (!ft_valid(argv[3], argc));
+		if ((ft_atol(argv[3]) < 0 || ft_atol(argv[3]) > INT_MAX))
 			return (false);
+		if ((ft_atol(argv[4]) < 0 || ft_atol(argv[4]) > INT_MAX))
+			return (false);
+		if (argc == 6)
+			if ((ft_atol(argv[5]) < 0 || ft_atol(argv[5]) > INT_MAX))
+				return (false);
 		i++;
 	}
+	return (true);
 }

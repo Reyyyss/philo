@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:07:31 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/16 14:39:57 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:55:40 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdbool.h>
 # include <aio.h>
 # include <stddef.h>
+# include <sys/time.h>
 
 typedef struct s_philo
 {
@@ -47,15 +48,27 @@ typedef struct s_data
 	int				simulation_stop;
 }	t_data;
 
-
 //main
+
 t_data	*prog_data();
 
 //utils
-int		ft_isdigit(int c);
-long	ft_atol(const char *nptr);
-bool	ft_isnbr(char *nbr);
-bool	ft_valid(int argc, char **argv);
+
 bool	validate_args(char **argv, int argc);
+long	ft_atol(const char *nptr);
+bool	ft_valid(int argc, char **argv);
+int		ft_isdigit(int c);
+bool	ft_isnbr(char *nbr);
+
+//data initialization
+
+void	print_data();
+t_philo	*philo_storage();
+void	init_data(char **argv, int argc);
+
+//philo routine
+
+void	philo_routine();
+
 
 #endif

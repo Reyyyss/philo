@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/13 16:42:44 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/19 15:50:07 by hcarrasq         ###   ########.fr       */
+/*   Created: 2025/05/19 15:49:20 by hcarrasq          #+#    #+#             */
+/*   Updated: 2025/05/19 18:42:07 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	main(int argc, char **argv)
+void	philo_routine(t_philo *philos)
 {
-	(void)argv;
-	if (argc < 5 || argc > 6)
-		return (printf("Error: Expected 4 or 5 arguments\n"), 1);
-	if (!validate_args(argv, argc))
-		return (printf("Error: Arguments are not valid\n"), 1);
-	init_data(argv, argc);
-	print_data();
-	philo_routine();
-	return (0);
-	
-}
+	int	i;
 
-t_data	*prog_data()
-{
-	static t_data	prog_data;
-
-	return (&prog_data);
+	i = -1;
+	while (1)
+	{
+		
+		if (prog_data()->number_of_meals > 0)
+			if (prog_data()->number_of_meals == philos[i].meals_eaten)
+				break;
+	}
 }
