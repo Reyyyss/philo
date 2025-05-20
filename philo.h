@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:07:31 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/19 18:55:40 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:20:15 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ bool	ft_isnbr(char *nbr);
 
 void	print_data();
 t_philo	*philo_storage();
-void	init_data(char **argv, int argc);
+t_philo	*init_data(char **argv, int argc);
+long get_current_time_in_ms();
 
 //philo routine
 
