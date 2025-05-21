@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 14:33:32 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/20 15:26:07 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/05/21 16:02:35 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ long get_current_time_in_ms()
 {
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
-	return tv.tv_sec * 1000L + tv.tv_usec / 1000;
+	return (tv.tv_sec * 1000L + tv.tv_usec / 1000);
 }
 /// @brief function to store all the data inside the philosophers
 /// @return 
