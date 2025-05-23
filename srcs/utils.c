@@ -6,19 +6,11 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 17:14:05 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/19 15:33:42 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:49:27 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-int	ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
-}
 
 bool	ft_isnbr(char *nbr)
 {
@@ -31,7 +23,7 @@ bool	ft_isnbr(char *nbr)
 		return (false);
 	while (nbr[i])
 	{
-		if (!ft_isdigit(nbr[i]))
+		if (nbr[i] < '0' && nbr[i] > '9')
 			return (false);
 		i++;
 	}
@@ -118,4 +110,16 @@ bool	validate_args(char **argv, int argc)
 		i++;
 	}
 	return (true);
+}
+
+/// @brief print the message of what the philosopher is doing
+/// @param philo_id 
+/// @param time 
+/// @param str 
+void	ft_printmessage(int	philo_id, long	time, char *str)
+{
+	pthread_mutex_lock(&prog_data()->write_lock);
+	if(!prog_data()->simulation_stop)
+		printf("philo %d, %s at %ld\n", philo_id, str, time);
+	pthread_mutex_unlock(&prog_data()->write_lock);
 }
