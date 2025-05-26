@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 14:33:32 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/21 16:02:35 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/05/26 19:07:05 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,19 @@ t_philo	*philo_storage()
 	i = 0;
 	philos = malloc(sizeof(t_philo) * prog_data()->num_philos);
 	if (!philos)
+	{
+		free(prog_data()->forks);
 		return (NULL);
-	while (++i > prog_data()->num_philos)
+	}
+	while (i < prog_data()->num_philos)
 	{
 		pthread_mutex_init(&prog_data()->forks[i], NULL);
-		philos[i].id = i;
+		philos[i].id = i + 1;
 		philos[i].data = prog_data();
-		philos[i].last_meal_time = 0;
+		philos[i].last_meal_time = prog_data()->start_time;
 		philos[i].meals_eaten = 0;
 		philos[i].thread = 0;
+		i++;
 	}
 	return (philos);
 }

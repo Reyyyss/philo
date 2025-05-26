@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:07:31 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/21 19:38:38 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:23:34 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,23 @@ t_data	*prog_data();
 bool	validate_args(char **argv, int argc);
 long	ft_atol(const char *nptr);
 bool	ft_valid(int argc, char **argv);
-int		ft_isdigit(int c);
 bool	ft_isnbr(char *nbr);
+void	ft_printmessage(int	philo_id, long	time, char *str);
 
 //data initialization
 
 void	print_data();
 t_philo	*philo_storage();
 t_philo	*init_data(char **argv, int argc);
-long get_current_time_in_ms();
+long	get_current_time_in_ms();
 
 //philo routine
 
-void	philo_routine();
+void	*philo_routine(void *args);
+int		start_simulation(t_philo *philos);
+void	philo_eating(t_philo *philos);
+void	take_forks(t_philo *philos);
+void	put_the_forks_down(t_philo	*philos);
 
 
 #endif
