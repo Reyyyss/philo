@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:49:20 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/26 19:14:14 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:05:47 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ int	start_simulation(t_philo *philos)
 	i = -1;
 	while (++i < prog_data()->num_philos)
 	{
-		fprintf(stderr, "Before printf\n");
-		fflush(stderr);
-		printf("%d\n", philos[i].id);
-		fflush(stdout);
-		fprintf(stderr, "After printf\n");
-		fflush(stderr);
 		if (pthread_create(&philos[i].thread, NULL, philo_routine, &philos[i]) != 0)
 			return (write(2, "Error creating a thread\n", 25), 1);
 	}
@@ -41,8 +35,15 @@ void	*philo_routine(void	*args)
 
 	i = 0;
 	philos = (t_philo*)args;
-	while (prog_data()->simulation_stop == 0)
+	while (1)
 	{
+		pthread_mutex_lock(&prog_data()->write_lock);
+		if (prog_data()->simulation_stop == 1)
+		{
+			pthread_mutex_unlock(&prog_data()->write_lock);
+			break;
+		}
+		pthread_mutex_unlock(&prog_data()->write_lock);
 		if (!i && philos->id % 2 == 0)
 			usleep(prog_data()->time_to_eat / 2);
 		i = 1;
@@ -59,21 +60,28 @@ void	*philo_routine(void	*args)
 
 void	philo_eating(t_philo *philos)
 {
-	if (get_current_time_in_ms() - philos->last_meal_time <= prog_data()->time_to_die)
+	pthread_mutex_lock(&prog_data()->write_lock);
+	if (prog_data()->simulation_stop == 1)
 	{
-		take_forks(philos);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "is eating");
-		philos->last_meal_time = get_current_time_in_ms();
-		philos->meals_eaten++;
-		put_the_forks_down(philos);
-	}
-	else
-	{
-		pthread_mutex_lock(&prog_data()->write_lock);
-		prog_data()->simulation_stop = 1;
 		pthread_mutex_unlock(&prog_data()->write_lock);
+		return;
 	}
-	
+	printf("time they have ate the last time: %ld\n", get_current_time_in_ms() - philos->last_meal_time);
+	if (get_current_time_in_ms() - philos->last_meal_time > prog_data()->time_to_die)
+	{
+		printf("aaaaaaaaaa\n");
+		printf("philo %d, %s at %ld\n", philos->id, "died", get_current_time_in_ms() - prog_data()->start_time);
+		prog_data()->simulation_stop = 1;
+		pthread_mutex_unlock(&prog_data()->write_lock);;
+		return;
+	}
+	pthread_mutex_unlock(&prog_data()->write_lock);
+	take_forks(philos);
+	ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "is eating");
+	philos->last_meal_time = get_current_time_in_ms();
+	philos->meals_eaten++;
+	usleep(prog_data()->time_to_eat * 1000);
+	put_the_forks_down(philos);
 }
 
 void	take_forks(t_philo *philos)
