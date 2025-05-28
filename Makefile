@@ -6,13 +6,13 @@
 #    By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/14 17:35:52 by hcarrasq          #+#    #+#              #
-#    Updated: 2025/05/20 15:23:12 by hcarrasq         ###   ########.fr        #
+#    Updated: 2025/05/28 14:50:34 by hcarrasq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRCS_FILES = main.c utils.c init_data.c philo_routine.c
+SRCS_FILES = main.c utils.c init_data.c philo_routine.c checking_cleaning.c
 
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 

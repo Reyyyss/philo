@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 17:14:05 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/23 14:49:27 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/05/28 18:53:17 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,6 @@ void	ft_printmessage(int	philo_id, long	time, char *str)
 {
 	pthread_mutex_lock(&prog_data()->write_lock);
 	if(!prog_data()->simulation_stop)
-		printf("philo %d, %s at %ld\n", philo_id, str, time);
+		printf("%ld %d %s\n", time, philo_id, str);
 	pthread_mutex_unlock(&prog_data()->write_lock);
 }

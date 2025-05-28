@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:49:20 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/27 16:05:47 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/05/28 18:55:22 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,20 @@ void	*philo_routine(void	*args)
 
 	i = 0;
 	philos = (t_philo*)args;
+	philos->last_meal_time = get_current_time_in_ms();
 	while (1)
 	{
-		pthread_mutex_lock(&prog_data()->write_lock);
 		if (prog_data()->simulation_stop == 1)
-		{
-			pthread_mutex_unlock(&prog_data()->write_lock);
 			break;
-		}
-		pthread_mutex_unlock(&prog_data()->write_lock);
-		if (!i && philos->id % 2 == 0)
-			usleep(prog_data()->time_to_eat / 2);
+		if (!i && philos->id % 2 != 0)
+			usleep(prog_data()->time_to_eat);
+		if (i && philos->id % 2 != 0)
+			usleep(500);
 		i = 1;
 		philo_eating(philos);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "is sleeping");
-		usleep(prog_data()->time_to_sleep * 1000);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "is thinking");
+		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, SLEEPING);
+		death_checker(philos, prog_data()->time_to_sleep);
+		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, THINKING);
 		if (prog_data()->number_of_meals > 0)
 			if (prog_data()->number_of_meals == philos->meals_eaten)
 				break;
@@ -60,27 +58,11 @@ void	*philo_routine(void	*args)
 
 void	philo_eating(t_philo *philos)
 {
-	pthread_mutex_lock(&prog_data()->write_lock);
-	if (prog_data()->simulation_stop == 1)
-	{
-		pthread_mutex_unlock(&prog_data()->write_lock);
-		return;
-	}
-	printf("time they have ate the last time: %ld\n", get_current_time_in_ms() - philos->last_meal_time);
-	if (get_current_time_in_ms() - philos->last_meal_time > prog_data()->time_to_die)
-	{
-		printf("aaaaaaaaaa\n");
-		printf("philo %d, %s at %ld\n", philos->id, "died", get_current_time_in_ms() - prog_data()->start_time);
-		prog_data()->simulation_stop = 1;
-		pthread_mutex_unlock(&prog_data()->write_lock);;
-		return;
-	}
-	pthread_mutex_unlock(&prog_data()->write_lock);
 	take_forks(philos);
-	ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "is eating");
+	ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, EATING);
+	death_checker(philos, prog_data()->time_to_eat);
 	philos->last_meal_time = get_current_time_in_ms();
 	philos->meals_eaten++;
-	usleep(prog_data()->time_to_eat * 1000);
 	put_the_forks_down(philos);
 }
 
@@ -96,16 +78,16 @@ void	take_forks(t_philo *philos)
 	if (philos->id % 2 == 0)
 	{
 		pthread_mutex_lock(&prog_data()->forks[left_fork]);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "took the left fork");
+		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, RIGHT_FORK);
 		pthread_mutex_lock(&prog_data()->forks[right_fork]);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "took the right fork");
+		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, LEFT_FORK);
 	}
 	else 	
 	{
 		pthread_mutex_lock(&prog_data()->forks[right_fork]);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "took the right fork");
+		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, LEFT_FORK);
 		pthread_mutex_lock(&prog_data()->forks[left_fork]);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "took the left fork");
+		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, RIGHT_FORK);
 	}
 }
 
@@ -118,16 +100,12 @@ void	put_the_forks_down(t_philo	*philos)
 	right_fork = philos->id % prog_data()->num_philos;
 	if (philos->id % 2 == 0)
 	{
-		pthread_mutex_unlock(&prog_data()->forks[left_fork]);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "dropped the left fork");
 		pthread_mutex_unlock(&prog_data()->forks[right_fork]);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "dropped the right fork");
+		pthread_mutex_unlock(&prog_data()->forks[left_fork]);
 	}
 	else
 	{
-		pthread_mutex_unlock(&prog_data()->forks[right_fork]);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "dropped the right fork");
 		pthread_mutex_unlock(&prog_data()->forks[left_fork]);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "dropped the left fork");
+		pthread_mutex_unlock(&prog_data()->forks[right_fork]);
 	}
 }

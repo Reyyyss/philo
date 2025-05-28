@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:42:44 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/27 15:25:06 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/05/28 17:59:24 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,12 @@ t_data	*prog_data()
 	static t_data	prog_data;
 
 	return (&prog_data);
+}
+
+int absolute_value(int number) 
+{
+	if (number < 0)
+		return (-number);
+	else 
+		return (number);
 }
