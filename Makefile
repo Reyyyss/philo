@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+         #
+#    By: henrique-reis <henrique-reis@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/14 17:35:52 by hcarrasq          #+#    #+#              #
-#    Updated: 2025/05/28 14:50:34 by hcarrasq         ###   ########.fr        #
+#    Updated: 2025/05/30 08:39:32 by henrique-re      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRCS_FILES = main.c utils.c init_data.c philo_routine.c checking_cleaning.c
+SRCS_FILES = main.c utils.c init_data.c philo_routine.c utils_checkers.c
 
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 

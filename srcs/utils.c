@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: henrique-reis <henrique-reis@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 17:14:05 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/28 18:53:17 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/05/30 08:38:45 by henrique-re      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,12 @@ bool	ft_isnbr(char *nbr)
 /// @param argv 
 bool	ft_valid(int argc, char **argv)
 {
-	char	**nbr;
 	int		i;
 	int		j;
 
 	i = 0;
 	while (i < argc)
 	{
-		nbr = argv;
 		j = 0;
 		while (argv[j])
 		{

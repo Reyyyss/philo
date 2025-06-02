@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: henrique-reis <henrique-reis@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:07:31 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/28 18:51:55 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/05/31 16:21:13 by henrique-re      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,7 @@ void	put_the_forks_down(t_philo	*philos);
 //checking and cleaning
 
 bool	death_checker(t_philo *philos,  long state);
+void	one_philo(t_philo *philo);
+void	destroy_mutexes(t_philo *philos);
 
 #endif
