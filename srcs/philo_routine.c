@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:49:20 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/28 18:55:22 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/06/09 15:43:03 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,30 @@ void	*philo_routine(void	*args)
 	philos->last_meal_time = get_current_time_in_ms();
 	while (1)
 	{
-		if (prog_data()->simulation_stop == 1)
-			break;
 		if (!i && philos->id % 2 != 0)
 			usleep(prog_data()->time_to_eat);
 		if (i && philos->id % 2 != 0)
 			usleep(500);
 		i = 1;
 		philo_eating(philos);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, SLEEPING);
-		death_checker(philos, prog_data()->time_to_sleep);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, THINKING);
 		if (prog_data()->number_of_meals > 0)
 			if (prog_data()->number_of_meals == philos->meals_eaten)
 				break;
+		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, SLEEPING);
+		death_checker(philos, prog_data()->time_to_sleep);
+		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, THINKING);
+		if(prog_data()->num_philos % 2 != 0)
+			death_checker(philos, prog_data()->time_to_sleep);
+		pthread_mutex_lock(&prog_data()->write_lock);
+		if (prog_data()->simulation_stop == 1)
+		{
+			pthread_mutex_unlock(&prog_data()->write_lock);
+			break;
+		}
+		pthread_mutex_unlock(&prog_data()->write_lock);
 	}
 	return (NULL);
-}
+}	
 
 void	philo_eating(t_philo *philos)
 {
@@ -78,16 +85,16 @@ void	take_forks(t_philo *philos)
 	if (philos->id % 2 == 0)
 	{
 		pthread_mutex_lock(&prog_data()->forks[left_fork]);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, RIGHT_FORK);
+		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "has taken a fork");
 		pthread_mutex_lock(&prog_data()->forks[right_fork]);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, LEFT_FORK);
+		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "has taken a fork");
 	}
 	else 	
 	{
 		pthread_mutex_lock(&prog_data()->forks[right_fork]);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, LEFT_FORK);
+		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "has taken a fork");
 		pthread_mutex_lock(&prog_data()->forks[left_fork]);
-		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, RIGHT_FORK);
+		ft_printmessage(philos->id, get_current_time_in_ms() - prog_data()->start_time, "has taken a fork");
 	}
 }
 
