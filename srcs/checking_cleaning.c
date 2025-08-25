@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 14:50:22 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/28 18:36:02 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/08/24 16:48:21 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ bool	death_checker(t_philo *philos, long state)
 
 	pthread_mutex_lock(&prog_data()->write_lock);
 	time_mark = get_current_time_in_ms() - philos->last_meal_time;
-	if (time_mark + state > prog_data()->time_to_die && prog_data()->simulation_stop == 0)
+	if (time_mark + state > prog_data()->time_to_die
+		&& prog_data()->simulation_stop == 0)
 	{
-		if(prog_data()->time_to_die - time_mark > 0)
+		if (prog_data()->time_to_die - time_mark > 0)
 			usleep((prog_data()->time_to_die - time_mark) * 1000);
-		printf("%ld - %d, %s\n", get_current_time_in_ms() - prog_data()->start_time, philos->id, DIED);
+		printf("%ld - %d, %s\n", get_current_time_in_ms()
+			- prog_data()->start_time, philos->id, DIED);
 		prog_data()->simulation_stop = 1;
 		pthread_mutex_unlock(&prog_data()->write_lock);
 		return (true);
@@ -33,4 +35,15 @@ bool	death_checker(t_philo *philos, long state)
 		usleep(state * 1000);
 	}
 	return (false);
+}
+
+void	philo_eating(t_philo *philos)
+{
+	take_forks(philos);
+	ft_printmessage(philos->id, get_current_time_in_ms()
+		- prog_data()->start_time, EATING);
+	death_checker(philos, prog_data()->time_to_eat);
+	philos->last_meal_time = get_current_time_in_ms();
+	philos->eaten++;
+	put_the_forks_down(philos);
 }

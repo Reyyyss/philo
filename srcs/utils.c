@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 17:14:05 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/05/28 18:53:17 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/08/24 16:11:58 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,19 @@ bool	ft_isnbr(char *nbr)
 	}
 	return (true);
 }
+
 /// @brief check if its a number or not
 /// @param argc 
-/// @param argv 
+/// @param argv
+
 bool	ft_valid(int argc, char **argv)
 {
-	char	**nbr;
 	int		i;
 	int		j;
 
 	i = 0;
 	while (i < argc)
 	{
-		nbr = argv;
 		j = 0;
 		while (argv[j])
 		{
@@ -53,9 +53,11 @@ bool	ft_valid(int argc, char **argv)
 	}
 	return (true);
 }
+
 /// @brief 
 /// @param nptr string thats gonna be converted to an int
 /// @return only positive numbers
+
 long	ft_atol(const char *nptr)
 {
 	int		count;
@@ -84,9 +86,11 @@ long	ft_atol(const char *nptr)
 	}
 	return (num * count);
 }
+
 /// @brief function to check if all the arguments are valid
 /// @param argv 
 /// @param argc 
+
 bool	validate_args(char **argv, int argc)
 {
 	int	i;
@@ -116,10 +120,11 @@ bool	validate_args(char **argv, int argc)
 /// @param philo_id 
 /// @param time 
 /// @param str 
-void	ft_printmessage(int	philo_id, long	time, char *str)
+
+void	ft_printmessage(int philo_id, long time, char *str)
 {
 	pthread_mutex_lock(&prog_data()->write_lock);
-	if(!prog_data()->simulation_stop)
+	if (!prog_data()->simulation_stop)
 		printf("%ld %d %s\n", time, philo_id, str);
 	pthread_mutex_unlock(&prog_data()->write_lock);
 }
