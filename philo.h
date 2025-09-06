@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:07:31 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/08/24 18:02:51 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/08/26 15:42:52 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int		start_simulation(t_philo *philos);
 void	philo_eating(t_philo *philos);
 void	take_forks(t_philo *philos);
 void	put_the_forks_down(t_philo	*philos);
+void	one_philo(t_philo *philos);
 
 //checking and cleaning
 

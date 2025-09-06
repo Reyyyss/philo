@@ -6,7 +6,7 @@
 #    By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/14 17:35:52 by hcarrasq          #+#    #+#              #
-#    Updated: 2025/05/28 14:50:34 by hcarrasq         ###   ########.fr        #
+#    Updated: 2025/08/29 17:50:04 by hcarrasq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@ 
 
 clean:
-		rm -rf $(OBJS)
+		rm -rf $(OBJS_DIR)
 
 fclean:		clean
 		rm -rf $(NAME)

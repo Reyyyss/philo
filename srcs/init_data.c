@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 14:33:32 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/08/24 18:02:45 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/09/06 14:35:17 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ t_philo	*init_data(char **argv, int argc)
 {
 	t_philo	*philos;
 
-	prog_data()->num_philos = atol(argv[1]);
-	prog_data()->time_to_die = atol(argv[2]);
-	prog_data()->time_to_eat = atol(argv[3]);
-	prog_data()->time_to_sleep = atol(argv[4]);
+	prog_data()->num_philos = ft_atol(argv[1]);
+	prog_data()->time_to_die = ft_atol(argv[2]);
+	prog_data()->time_to_eat = ft_atol(argv[3]);
+	prog_data()->time_to_sleep = ft_atol(argv[4]);
 	prog_data()->start_time = get_current_time_in_ms();
 	prog_data()->simulation_stop = 0;
 	if (argc == 6)
-		prog_data()->meals = atol(argv[5]);
+		prog_data()->meals = ft_atol(argv[5]);
 	else
 		prog_data()->meals = -1;
 	prog_data()->forks = malloc(sizeof(pthread_mutex_t)
@@ -37,9 +37,9 @@ t_philo	*init_data(char **argv, int argc)
 	philos = philo_storage();
 	return (philos);
 }
+
 /// @brief function to get the time precisely 
 /// @return
-
 long	get_current_time_in_ms(void)
 {
 	struct timeval	tv;
@@ -47,9 +47,9 @@ long	get_current_time_in_ms(void)
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000L + tv.tv_usec / 1000);
 }
+
 /// @brief function to store all the data inside the philosophers
 /// @return
-
 t_philo	*philo_storage(void)
 {
 	t_philo	*philos;

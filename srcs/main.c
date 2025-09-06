@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:42:44 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/08/25 16:44:31 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/08/26 15:43:46 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ int	main(int argc, char **argv)
 	if (!validate_args(argv, argc))
 		return (printf("Error: Arguments are not valid\n"), 1);
 	philos = init_data(argv, argc);
+	if (prog_data()->num_philos == 1)
+	{
+		one_philo(philos);
+		free_philo(philos);
+		return (0);
+	}
 	start_simulation(philos);
 	free_philo(philos);
 	return (0);

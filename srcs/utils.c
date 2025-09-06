@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 17:14:05 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/08/24 16:11:58 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/09/06 14:42:59 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	ft_isnbr(char *nbr)
 		return (false);
 	while (nbr[i])
 	{
-		if (nbr[i] < '0' && nbr[i] > '9')
+		if (nbr[i] < '0' || nbr[i] > '9')
 			return (false);
 		i++;
 	}
@@ -40,7 +40,7 @@ bool	ft_valid(int argc, char **argv)
 	int		j;
 
 	i = 0;
-	while (i < argc)
+	while (i < argc - 1)
 	{
 		j = 0;
 		while (argv[j])
