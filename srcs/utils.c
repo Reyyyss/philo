@@ -6,7 +6,7 @@
 /*   By: hcarrasq <hcarrasq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 17:14:05 by hcarrasq          #+#    #+#             */
-/*   Updated: 2025/09/06 14:42:59 by hcarrasq         ###   ########.fr       */
+/*   Updated: 2025/09/15 15:45:51 by hcarrasq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,7 @@ long	ft_atol(const char *nptr)
 	while ((nptr[i] >= '\t' && nptr[i] <= '\r') || nptr[i] == ' ')
 		i++;
 	if (nptr[i] == '+' || nptr[i] == '-')
-	{
-		if (nptr[i] == '-')
-			return (-1);
-		i++;
-		if (!nptr[i])
-			return ((long)INT_MAX + 1);
-	}
+		return (-1);
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
 		num = num * 10 + (nptr[i] - 48);
@@ -102,14 +96,14 @@ bool	validate_args(char **argv, int argc)
 	{
 		if ((ft_atol(argv[1]) < 0 || ft_atol(argv[1]) > 200))
 			return (false);
-		if ((ft_atol(argv[2]) < 0 || ft_atol(argv[2]) > INT_MAX))
+		if ((ft_atol(argv[2]) < 0 || ft_atol(argv[2]) > 1000))
 			return (false);
-		if ((ft_atol(argv[3]) < 0 || ft_atol(argv[3]) > INT_MAX))
+		if ((ft_atol(argv[3]) < 0 || ft_atol(argv[3]) > 1000))
 			return (false);
-		if ((ft_atol(argv[4]) < 0 || ft_atol(argv[4]) > INT_MAX))
+		if ((ft_atol(argv[4]) < 0 || ft_atol(argv[4]) > 1000))
 			return (false);
 		if (argc == 6)
-			if ((ft_atol(argv[5]) < 0 || ft_atol(argv[5]) > INT_MAX))
+			if ((ft_atol(argv[5]) < 0 || ft_atol(argv[5]) > 1000))
 				return (false);
 		i++;
 	}
